@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:IFUniPlayer"
+             x:Class="IFUniPlayer.MainPage">
+
+    <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".1*"/>
+                <RowDefinition Height=".9*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+               <Button Text="Game" Grid.Row="0" Grid.Column="0" />
+                <Button Text="About" Grid.Row="0" Grid.Column="1" />
+            <local:GameView BackgroundColor="Accent" Grid.Row="1" Grid.ColumnSpan="2"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>
