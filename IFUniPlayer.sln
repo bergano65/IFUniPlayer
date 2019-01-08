@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFUniPlayer.iOS", "IFUniPla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFUniPlayer.UWP", "IFUniPlayer\IFUniPlayer.UWP\IFUniPlayer.UWP.csproj", "{CA1DD1F3-A916-4C0F-9351-8542402C6359}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFUniPlayer", "IFUniPlayer\IFUniPlayer\IFUniPlayer.csproj", "{A6B3B60F-121B-40BE-ABB8-5D310E3B7DE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IFUniPlayer", "IFUniPlayer\IFUniPlayer\IFUniPlayer.csproj", "{A6B3B60F-121B-40BE-ABB8-5D310E3B7DE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
