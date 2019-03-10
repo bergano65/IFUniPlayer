@@ -25,7 +25,7 @@ end
 local function main()
   test_input()
   test_print()
-test_game_ncreate()
+test_game_create()
  test_die()
 end
 

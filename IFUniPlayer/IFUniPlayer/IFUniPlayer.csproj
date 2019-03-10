@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MoonSharp" Version="2.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
+    <None Include="Lua\.settings\org.eclipse.ldt.prefs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Lua\" />
+    <PackageReference Include="MoonSharp" Version="2.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
   </ItemGroup>
 </Project>

@@ -116,8 +116,12 @@ end
 --]]
 function init()
 
-    commonInit()    
-    scoreStatus(0, 0) -- initialize the score display
+    commonInit()     
+    local startRoom = getCurrentGame().startRoom
+    parserGetMe().location = startRoom
+    startRoom.doAction("look")
+    startRoom.isSeen = true
+    scoreStatus(0, 0) -- initialize the score displayt    
 end
 
 --[[
@@ -172,6 +176,7 @@ function game:new()
     g.player = nil
     g.turns = 0                          -- no turns have transpired so far
     g.points = 0                            -- no points have been accumulated yet
+    g.startRoom = nil
     g.maxpoints = 100                                    -- maximum possible score
     g.verbose = false                             -- we are currently in TERSE mode
     g.awakeTime = 0               -- time that has elapsed since the player slept
@@ -209,8 +214,15 @@ currentgame = game:new()
  *   the font for command input through the preferences dialog.
 --]]
 
+me = nil
+
 function commandPrompt(code)
 
     -- display the normal prompt
     print_txt("\n>")
+end
+
+function getCurrentGame()
+
+  return currentGame
 end
