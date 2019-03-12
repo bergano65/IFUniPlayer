@@ -239,6 +239,7 @@ end
 ]]--
 
 Thing = class("Thing")
+
 function Thing:__construct()
     self.isThem = false
     self.weight = 0
@@ -264,18 +265,14 @@ function Thing:__construct()
             return d
         end
     end
-end
-
-
---[[
-
     self.itobjdescription = function()
         if (self.isThem)  then
             return "them"
         else
             return "it"
       end 
-        
+    end
+    
     self.isdescription = function()
         if (self.isThem)  then
             return "are"
@@ -283,12 +280,13 @@ end
             return "is"
         end
     end
-        
-    self.isntdescrition = function ()
+
+    self.isntdescription = function()
         if (self.isThem) then
              return "aren't"
         else
             return "isn't"
+        end
     end
 
     self.itseldescription = function()
@@ -296,6 +294,7 @@ end
             return "themselves"
         else
              return " itself"
+        end
     end
 
    self.thatdescription = function()
@@ -306,29 +305,23 @@ end
         end
     end
 
-       self.itisdescription = function()
+    self.itisdescription = function()
         if (self.isThem)  then
             return "they are"
         else
             return "it is"
         end
-	end
-
-     self.isdescription = function()
-        if (self.isThem)  then
-            return "are"
-        else
-            return "it"
-        end
-	end
-
-    self.doesdesc = function()
+      end
+    
+    self.doesdescription = function()
         if (self.isThem)  then
             return "do"
         else
             return "does"
         end        
     end
+end
+--[[
 
 self.multisdescription = function ()
 	    return eval(self.description)
