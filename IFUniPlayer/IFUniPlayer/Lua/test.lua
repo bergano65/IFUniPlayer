@@ -21,8 +21,33 @@ function test_game_create()
   print(g)
 end
 
+local Luaoop = require("Luaoop")
+class = Luaoop.class
+
+local A = class("A")
+function A:__construct()
+    print("A constructor")
+end
+
+function A:left()
+  print("call LEFT")
+end
+
+function test_oop()    
+    local a = A()
+    a.left()
+end
+
+function test_thing()
+  local t = Thing()
+  print(eval(t.adescription))
+  print(eval(t.thedescription))  
+  print(eval(t.pluraldescription))
+end
 
 local function main()
+    test_oop()
+  test_thing()
   test_input()
   test_print()
 test_game_create()

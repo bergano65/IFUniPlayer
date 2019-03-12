@@ -24,6 +24,10 @@
  *   percent signs, of course) when the actor is the player character (Me).
 --]]
 
+local Luaoop = require("Luaoop")
+class = Luaoop.class
+
+
 fmtStrings = 
 {
    "fmtYou", "you",
@@ -58,25 +62,6 @@ specialWords =
  --]]
   
 --[[  
-function checkDoor
-function checkReach
-function itemcnt
-function isIndistinguishable
-function sayPrefixCount
-function listcont
-function nestlistcont
-function listcontcont
-function turncount
-function addweight
-function addbulk
-function incscore
-function scoreRank
-function terminate
-function goToSleep
-function initSearch
-function reachableList
-function initRestart
-function contentsListable
 --]]
 
 --[[
@@ -108,7 +93,7 @@ end
  
     if actor.isCarrying(obj) or obj.isIn(actor.location) then    
         if find(loc.reachable, obj) ~= nil then
-           print ("%You% can't reach " .. obj.thedesc .. " from " .. loc.thedescription .. ".")
+           print ("%You% can't reach " .. eval(loc.thedescription) .. " from " .. eval(loc.thedescription) .. ".")
            return false
         end
     else
@@ -205,5 +190,168 @@ function turncount()
 
     currentgame.turns = currentgame.turns + 1  
     scoreStatus(currentgame.turns, currentgame.points);
+end
+
+--[[
+ VERBS IMPLEMENTATION
+]]--
+
+local readVerb = {}
+readVerb[1] = "read"
+readVerb[2] = function()
+	return true
+end
+readVerb[3] = function()
+	print(eval("%You% can't read " .. eval(self.adescription) .. ". "))
+end
+
+
+
+--[[
+	*  The basic class for objects in a game.  The property contents
+ *  is a list that specifies what is in the object; this property is
+ *  automatically set up by the system after the game is compiled to
+ *  contain a list of all objects that have this object as their
+ *  location property.  The contents property is kept
+ *  consistent with the location properties of referenced objects
+ *  by the moveInto method; always use moveInto rather than
+ *  directly setting a location property for this reason.  The
+ *  adesc method displays the name of the object with an indefinite
+ *  article; the default is to display "a" followed by the sdesc,
+ *  but objects that need a different indefinite article (such as "an"
+ *  or "some") should override this method.  Likewise, thedesc
+ *  displays the name with a definite article; by default, thedesc
+ *  displays "the" followed by the object's sdesc.  The sdesc
+ *  simply displays the object's name ("short description") without
+ *  any articles.  The ldesc is the long description, normally
+ *  displayed when the object is examined by the player; by default,
+ *  the ldesc displays "It looks like an ordinary sdesc."
+ *  The isIn(object) method returns true if the
+ *  object's location is the specified object or the object's
+ *  location is an object whose contentsVisible property is
+ *  true and that object's isIn(object) method is
+ *  true.  Note that if isIn is true, it doesn't
+ *  necessarily mean the object is reachable, because isIn is
+ *  true if the object is merely visible within the location.
+ *  The moveInto(object) method moves the object to be inside
+ *  the specified object.  To make an object disappear, move it
+ *  into nil.
+]]--
+
+Thing = class("Thing")
+function Thing:__construct()
+    self.isThem = false
+    self.weight = 0
+    self.statusPrep = "on"       -- give everything a default status preposition
+    self.isListed = true         -- shows up in room/inventory listings
+    self.contents = {}           -- set up automatically by system - do not set
+	self.description =  "thing"
+	
+    self.verbTable = {}
+
+    self.adescription = function ()
+	    return "a " .. eval(self.description)
+    end
+
+  self.thedescription = function ()
+      return "the " .. eval(self.description)
+    end
+    
+  self.pluraldescription = function ()
+      local d = eval(self.description)
+        if (not self.isThem) then
+            d = d .. "s"
+            return d
+        end
+    end
+end
+
+
+--[[
+
+    self.itobjdescription = function()
+        if (self.isThem)  then
+            return "them"
+        else
+            return "it"
+      end 
+        
+    self.isdescription = function()
+        if (self.isThem)  then
+            return "are"
+        else
+            return "is"
+        end
+    end
+        
+    self.isntdescrition = function ()
+        if (self.isThem) then
+             return "aren't"
+        else
+            return "isn't"
+    end
+
+    self.itseldescription = function()
+        if (self.isThem) then
+            return "themselves"
+        else
+             return " itself"
+    end
+
+   self.thatdescription = function()
+        if (self.isThem)  then
+            return "those"
+        else
+            return "that"
+        end
+    end
+
+       self.itisdescription = function()
+        if (self.isThem)  then
+            return "they are"
+        else
+            return "it is"
+        end
+	end
+
+     self.isdescription = function()
+        if (self.isThem)  then
+            return "are"
+        else
+            return "it"
+        end
+	end
+
+    self.doesdesc = function()
+        if (self.isThem)  then
+            return "do"
+        else
+            return "does"
+        end        
+    end
+
+self.multisdescription = function ()
+	    return eval(self.description)
+    end
+    
+    self.longdescription = function ()
+        if (self.isThem) then
+            return eval(self.itnomdescription) .. " look like ordinary " .. eval(self.description) .. eval("to %me%")
+        else
+            return eval(self.itnomdescription) .. " looks like ordinary " .. eval(self.description) .. eval("to %me%")
+        end
+    -- add verbs
+    self.addVerb(readVerb)
+
+end
+end
+]]--
+
+function Thing:addVerb(t)
+  table.insert(self.verbTable(), t)
+end
+
+function Thing:doVerb(a, v, o, i)
+
 end
 

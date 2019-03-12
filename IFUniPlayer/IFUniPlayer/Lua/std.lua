@@ -7,7 +7,7 @@
    (This is only really necessary when a function will be referenced
     as a daemon or fuse before it is defined; however, it doesn't hurt
     anything to pre-declare all of them.) 
-    --]]
+    ]]--
 
 
 -- basic io functions
@@ -17,6 +17,14 @@ if currentgame == nil or currentgame.mode == "txt" then
   print(msg)
 end
 
+end
+
+function eval(expr)
+    if type(expr) == "function" then
+        return expr()
+    else
+        return expr
+    end
 end
 
 -- basic functions

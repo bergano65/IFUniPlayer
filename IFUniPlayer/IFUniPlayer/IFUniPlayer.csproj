@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Lua\base.lua" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Lua\.settings\org.eclipse.ldt.prefs" />
   </ItemGroup>
 
