@@ -320,19 +320,31 @@ function Thing:__construct()
             return "does"
         end        
     end
-end
---[[
 
-self.multisdescription = function ()
+    self.itnomdescription = function()
+                if (self.isThem)  then
+            return "them"
+        else
+            return "it"
+        end        	
+    end
+
+self.multidescription = function ()
 	    return eval(self.description)
     end
     
     self.longdescription = function ()
         if (self.isThem) then
-            return eval(self.itnomdescription) .. " look like ordinary " .. eval(self.description) .. eval("to %me%")
+            return eval(self.itnomdescription) .. " look like ordinary " .. eval(self.description) .. eval(" to %me%")
         else
-            return eval(self.itnomdescription) .. " looks like ordinary " .. eval(self.description) .. eval("to %me%")
+            return eval(self.itnomdescription) .. " looks like ordinary " .. eval(self.description) .. eval(" to %me%")
         end
+end
+  end
+  
+  
+  --[[
+
     -- add verbs
     self.addVerb(readVerb)
 

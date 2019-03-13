@@ -50,6 +50,9 @@ function test_thing_description()
   print(eval(t.thatdescription))
   print(eval(t.itisdescription))
   print(eval(t.doesdescription))
+  print(eval(t.longdescription))
+  print(eval(t.itnomdescription))
+  print(eval(t.multidescription))
 end
 
 local function main()
