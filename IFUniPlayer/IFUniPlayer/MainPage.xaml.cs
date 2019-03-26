@@ -12,7 +12,12 @@ namespace IFUniPlayer
         public MainPage()
         {
             InitializeComponent();
+            Player.Instance.MainView = this;
         }
 
+        private void MenuButtonClicked(object sender, EventArgs e)
+        {
+           Application.Current.MainPage = new NavigationPage(new MenuPage());
+        }
     }
 }

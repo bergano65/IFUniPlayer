@@ -47,7 +47,7 @@ fmtStrings =
  *   parser uses the old defaults.  The list below is the same as the old
  *   defaults.  Note - the words in this list must appear in the order
  *   shown below.
-]]--
+--]]
 
 specialWords = 
 {
@@ -59,10 +59,10 @@ specialWords =
  *   but it doesn't hurt.  Providing these forward declarations ensures
  *   that the compiler knows that we want these symbols to refer to
  *   functions rather than objects.
- ]]--
+ --]]
   
 --[[  
-]]--
+--]]
 
 --[[
  *  inputline: function
@@ -71,7 +71,7 @@ specialWords =
  *  This cover function switches to the 'TADS-Input' font when running in
  *  HTML mode, so that input explicitly read through this function appears
  *  in the same input font that is used for normal command-line input.
-]]--
+--]]
 
 function inputline()
     if currentgame == nil or currentgame.mode == "txt" then
@@ -87,7 +87,7 @@ end
  *   if obj is a special object (numObj or strObj), if obj is in actor's
  *   inventory or actor's location, or if it's in the 'reachable' list for
  *   loc.    
- ]]--
+ --]]
  
  function checkReach(loc, actor, obj)
  
@@ -271,6 +271,7 @@ function Thing:__construct()
     self.contents = {}           -- set up automatically by system - do not set
     self.contentsVisible = true 
     self.contents = true 
+    self.location = nil
 	
     self.verbTable = {}
 
@@ -400,3 +401,25 @@ end
     self.addVerb(pushVerb)
 end
 
+
+Game = class("Game")
+function Game.__construct()
+    self.name = "Deep Space Drifter"
+    self.releasedate = '2019-01-01'
+    self.license =  'Freeware'
+    self.copyrules = 'Nominal Cost Only'
+    self.author = "you"
+    self.description = "A text adventure."
+    self.mode = "txt" -- text/ui
+    self.version = "1.0"
+    self.player = nil
+    self.turns = 0                          -- no turns have transpired so far
+    self.points = 0                            -- no points have been accumulated yet
+    self.startRoom = nil
+    self.maxpoints = 100                                    -- maximum possible score
+    self.verbose = false                             -- we are currently in TERSE mode
+    self.awakeTime = 0               -- time that has elapsed since the player slept
+    self.sleepTime = 400     -- interval between sleeping times (longest time awake)
+    self.lastMealTime = 0              -- time that has elapsed since the player ate
+    self.eatTime = 200         -- interval between meals (longest time without food)
+end

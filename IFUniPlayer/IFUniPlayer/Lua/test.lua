@@ -27,10 +27,13 @@ class = Luaoop.class
 local A = class("A")
 function A:__construct()
     print("A constructor")
+    self.Left = 5
+
+self.left = function()
+  print("call LEFT")
+  print(self.Left)
 end
 
-function A:left()
-  print("call LEFT")
 end
 
 function test_oop()    
@@ -55,9 +58,15 @@ function test_thing_description()
   print(eval(t.multidescription))
 end
 
+function test_thing_verb()
+	local t = Thing()
+    t.doVerb("read", nil, nil)
+end
+
 local function main()
     test_oop()
   test_thing_description()
+  test_thing_verb()
   test_input()
   test_print()
 test_game_create()

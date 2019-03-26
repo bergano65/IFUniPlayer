@@ -14,8 +14,8 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-               <Button Text="Game" Grid.Row="0" Grid.Column="0" />
-                <Button Text="About" Grid.Row="0" Grid.Column="1" />
+            <Button Grid.Row="0" Grid.Column="0" Clicked="MenuButtonClicked" Text="Menu"/>
+            <Label Grid.Row="0" Grid.Column="1" />
             <local:GameView BackgroundColor="Accent" Grid.Row="1" Grid.ColumnSpan="2"/>
         </Grid>
     </StackLayout>
