@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 
 using MoonSharp;
 using MoonSharp.Interpreter;
@@ -22,10 +23,20 @@ namespace IFUniPlayer
         public override object LoadFile(string file, Table globalContext)
         {
             string assemblyName = Assembly.GetExecutingAssembly().CodeBase;
-            string fileName = assemblyName.Replace("file://", "");
-            fileName = Path.Combine(fileName, "sample/" + file + ".lua");
+             string fileName = assemblyName.Replace("file:///", "");
+            fileName = Path.GetDirectoryName(fileName);
+            fileName = Directory.GetParent(fileName).FullName;
+            fileName = Path.Combine(fileName, file + ".lua");
 
-            return null;
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string[] resources = assembly.GetManifestResourceNames();
+            string resourceName = resources.Where(r => r.Contains(file)).FirstOrDefault();
+            if (resourceName == null)
+            {
+                return null;
+            }
+
+            return assembly.GetManifestResourceStream(resourceName);
         }
 
         public override bool ScriptFileExists(string name)
@@ -42,7 +53,7 @@ namespace IFUniPlayer
         public override string ResolveFileName(string filename, Table globalContext)
         {
             return filename;
-//            return base.ResolveFileName(filename, globalContext);
+            // return base.ResolveFileName(filename, globalContext);
         }
     }
 }

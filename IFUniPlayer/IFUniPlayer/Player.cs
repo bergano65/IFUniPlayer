@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using MoonSharp;
+using MoonSharp.VsCodeDebugger;
+using MoonSharp.Interpreter.Debugging;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
 
@@ -39,10 +41,18 @@ namespace IFUniPlayer
             ScriptLoader scriptLoader = new ScriptLoader("sample");
             scriptLoader = new ScriptLoader("");
             Script.DefaultOptions.ScriptLoader = scriptLoader;
+            Script.DefaultOptions.DebugPrint = s => Console.WriteLine(s.ToLower());
             Script script = new Script();
 
+/*
+ MoonSharpVsCodeDebugServer server = new MoonSharpVsCodeDebugServer();
+            server.Start();
+            server.AttachToScript(script, "DebugScript");
+*/
+            // run script
             Table globalCtxt = new Table(script);
-            DynValue res = script.DoString("require \"game\" \r\ncreateGame() \r\n");
+//            DynValue res = script.DoString("print('~')\r\n return 5");
+            DynValue res = script.DoString("require \"test\" \r\nmain() \r\n");
 
             ShowMainView();
 

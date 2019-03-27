@@ -15,6 +15,7 @@
     <None Remove="Lua\sample\game.lua" />
     <None Remove="Lua\sample\Luaoop.lua" />
     <None Remove="Lua\sample\std.lua" />
+    <None Remove="Lua\test.lua" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +31,7 @@
     <EmbeddedResource Include="Lua\sample\std.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Lua\test.lua" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +40,7 @@
 
   <ItemGroup>
     <PackageReference Include="MoonSharp" Version="2.0.0" />
+    <PackageReference Include="MoonSharp.Debugger.VsCode" Version="2.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
   </ItemGroup>
 

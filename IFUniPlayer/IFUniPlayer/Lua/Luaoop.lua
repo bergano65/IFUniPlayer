@@ -111,6 +111,7 @@ function class.type(t)
 end
 
 -- check if an instance/class is/inherits from a specific class
+
 -- t: class or instance
 -- classdef: can be nil to check if t is a valid (built) class
 function class.is(t, classdef)

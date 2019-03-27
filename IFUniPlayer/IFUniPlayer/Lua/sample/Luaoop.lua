@@ -41,6 +41,8 @@ end
 -- ...: base classes (single/multiple inheritance)
 -- return created class
 function class.new(name, ...)
+print(name)
+print(type(name))
   if type(name) == "string" then
     local c = { -- init class
       -- binary operator tables
