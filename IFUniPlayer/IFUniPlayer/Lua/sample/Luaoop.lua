@@ -41,8 +41,6 @@ end
 -- ...: base classes (single/multiple inheritance)
 -- return created class
 function class.new(name, ...)
-print(name)
-print(type(name))
   if type(name) == "string" then
     local c = { -- init class
       -- binary operator tables
@@ -80,7 +78,8 @@ print(type(name))
       __tostring = function(c) return "class<"..class.name(c)..">" end
     })
   else
-    error("class name is not a string")
+--    error("class name is not a string")
+    return
   end
 end
 

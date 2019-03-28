@@ -2,7 +2,7 @@
 
 require "std"
 require "adv"
-
+require "game"
 
 function test_input()
   local i = inputline()

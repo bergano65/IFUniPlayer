@@ -367,23 +367,33 @@ self.multidescription = function ()
 end
   
 self.addVerb = function(t)
-    local ind = -1
-    for i = table.getn(self.verbTable), 1, 1 do
-        local v = self.verbTable[i]
+    local ind = 0
+   local verbCount = table.getn(self.verbTable)
+   repeat
+        if ind == verbCount then
+            break
+        end
+
+        local v = self.verbTable[ind + 1]
         if (v[1] == t[1]) then
-            self.verbTable[i] = t
+            self.verbTable[ind] = t
             return
         end
- 	end
-    self.verbTable[table.nsize(self.verbTable)] = t
+        ind = ind + 1
+ 	until (true)
+
+    self.verbTable[table.getn(self.verbTable) + 1] = t
 end
 
 
 self.doVerb = function(v, a, i)
+    local ind = 0
    local verbCount = table.getn(self.verbTable)
-   for i = verbCount, 1, 1
-   do
-    local verb = self.verbTable[i]
+   repeat
+        if ind == verbCount then
+            break
+        end
+    local verb = self.verbTable[ind + 1]
     if (verb[1] == v) then
         local tryFunc = verb[2]
         if (tryFunc(self, a, i)) then
@@ -392,7 +402,8 @@ self.doVerb = function(v, a, i)
             return
         end
      end
-  end
+     ind = ind + 1
+  until (true)
 end  
 
       -- add verbs
@@ -403,7 +414,7 @@ end
 
 
 Game = class("Game")
-function Game.__construct()
+function Game:__construct()
     self.name = "Deep Space Drifter"
     self.releasedate = '2019-01-01'
     self.license =  'Freeware'
