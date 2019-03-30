@@ -368,12 +368,11 @@ end
   
 self.addVerb = function(t)
     local ind = 0
-   local verbCount = table.getn(self.verbTable)
+   local verbCount = #self.verbTable
    repeat
         if ind == verbCount then
             break
         end
-
         local v = self.verbTable[ind + 1]
         if (v[1] == t[1]) then
             self.verbTable[ind] = t
@@ -382,7 +381,7 @@ self.addVerb = function(t)
         ind = ind + 1
  	until (true)
 
-    self.verbTable[table.getn(self.verbTable) + 1] = t
+    self.verbTable[#self.verbTable + 1] = t
 end
 
 

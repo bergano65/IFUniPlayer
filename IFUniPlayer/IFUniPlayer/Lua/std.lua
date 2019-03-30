@@ -9,6 +9,9 @@
     anything to pre-declare all of them.) 
     ]]--
 
+local Luaoop = require("Luaoop")
+class = Luaoop.class
+
 
 -- basic io functions
 function print_txt(msg)
@@ -171,33 +174,6 @@ function pardon()
     print_txt("I beg your pardon?")
 end
 
-game = {}
-
-function game:new()
-  
-  local g = {}
-   g.parent = self
-    g.name = ""
-    g.description = ""
-    g.mode = "txt" -- text/ui
-    g.version = ""
-    g.player = nil
-    g.turns = 0                          -- no turns have transpired so far
-    g.points = 0                            -- no points have been accumulated yet
-    g.startRoom = nil
-    g.maxpoints = 100                                    -- maximum possible score
-    g.verbose = false                             -- we are currently in TERSE mode
-    g.awakeTime = 0               -- time that has elapsed since the player slept
-    g.sleepTime = 400     -- interval between sleeping times (longest time awake)
-    g.lastMealTime = 0              -- time that has elapsed since the player ate
-    g.eatTime = 200         -- interval between meals (longest time without food)
-    g.lamplist = {}              -- list of all known light providers in the game
-
-  return g
-end
-
-currentgame = game:new()
-
     
 --[[
  *   "Me" is the initial player's actor; the parser automatically uses the
@@ -230,7 +206,3 @@ function commandPrompt(code)
     print_txt("\n>")
 end
 
-function getCurrentGame()
-
-  return currentGame
-end

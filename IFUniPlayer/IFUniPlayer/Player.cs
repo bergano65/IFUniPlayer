@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using MoonSharp;
 using MoonSharp.VsCodeDebugger;
@@ -18,6 +19,8 @@ namespace IFUniPlayer
 
         public Page MainView { get; set; }
 
+        public Editor Editor  { get; set; }
+
         public static Player Instance
         {
             get
@@ -31,6 +34,11 @@ namespace IFUniPlayer
             }
         }
 
+        public static int SetGame(DynValue game)
+        {
+            return 0;
+        }
+
         public void ShowMainView()
         {
             Application.Current.MainPage = new NavigationPage(MainView);
@@ -41,18 +49,29 @@ namespace IFUniPlayer
             ScriptLoader scriptLoader = new ScriptLoader("sample");
             scriptLoader = new ScriptLoader("");
             Script.DefaultOptions.ScriptLoader = scriptLoader;
-            Script.DefaultOptions.DebugPrint = s => Console.WriteLine(s.ToLower());
-            Script script = new Script();
+            Script.DefaultOptions.DebugPrint = s =>
+            Editor.Text += "\r\n" + s.ToLower() ;
 
-/*
- MoonSharpVsCodeDebugServer server = new MoonSharpVsCodeDebugServer();
-            server.Start();
-            server.AttachToScript(script, "DebugScript");
-*/
+            Script script = new Script();
+            script.Globals["setGame"] = (Func<DynValue, int>)SetGame;
+
+            /*
+             MoonSharpVsCodeDebugServer server = new MoonSharpVsCodeDebugServer();
+                        server.Start();
+                        server.AttachToScript(script, "DebugScript");
+            */
             // run script
-            Table globalCtxt = new Table(script);
-//            DynValue res = script.DoString("print('~')\r\n return 5");
-            DynValue res = script.DoString("require \"test\" \r\nmain() \r\n");
+            try
+            {
+                Table globalCtxt = new Table(script);
+                //            DynValue res = script.DoString("print(10'~')\r\n return 5");
+                DynValue res = script.DoString("require \"game\" \r\nstartGame() \r\n");
+
+            }
+            catch (Exception e)
+            {
+                Player.Instance.Editor.Text += e.Message;
+            }
 
             ShowMainView();
 

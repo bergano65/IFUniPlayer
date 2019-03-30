@@ -14,9 +14,10 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Clicked="MenuButtonClicked" Text="Menu"/>
+            <Button Grid.Row="0" Grid.Column="0" Clicked="MenuButtonClicked" Text="Menu" WidthRequest="50" HeightRequest="30"/>
             <Label Grid.Row="0" Grid.Column="1" />
-            <local:GameView BackgroundColor="Accent" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Editor Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="_gameEditor"/>
+            <!--            <local:GameView BackgroundColor="Accent" Grid.Row="1" Grid.ColumnSpan="2"/> -->
         </Grid>
     </StackLayout>
 </ContentPage>

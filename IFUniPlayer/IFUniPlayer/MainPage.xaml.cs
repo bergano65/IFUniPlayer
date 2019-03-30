@@ -13,6 +13,7 @@ namespace IFUniPlayer
         {
             InitializeComponent();
             Player.Instance.MainView = this;
+            Player.Instance.Editor = _gameEditor;
         }
 
         private void MenuButtonClicked(object sender, EventArgs e)

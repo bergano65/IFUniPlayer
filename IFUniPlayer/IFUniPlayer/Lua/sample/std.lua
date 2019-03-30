@@ -174,39 +174,6 @@ function pardon()
     print_txt("I beg your pardon?")
 end
 
-Game = class{"Game"}
-
-function Game:__construct()
-  
-    self.name = ""
-    self.license =  'Freeware'
-    self.releasedate = '1990-01-01'
-    self.license =  'Freeware'
-    self.copyrules = 'Nominal Cost Only'
-    self.author = "Michael J. Roberts and Steve McAdams"
-    self.description = ""
-    self.mode = "txt" -- text/ui
-    self.version = "1.0"
-    self.player = nil
-    self.turns = 0                          -- no turns have transpired so far
-    self.points = 0                            -- no points have been accumulated yet
-    self.startRoom = nil
-    self.maxpoints = 100                                    -- maximum possible score
-    self.verbose = false                             -- we are currently in TERSE mode
-    self.awakeTime = 0               -- time that has elapsed since the player slept
-    self.sleepTime = 400     -- interval between sleeping times (longest time awake)
-    self.lastMealTime = 0              -- time that has elapsed since the player ate
-    self.eatTime = 200         -- interval between meals (longest time without food)
-    self.lamplist = {}              -- list of all known light providers in the game
-
-    self.init = function()
-
-end
-
-end
-
-currentgame = Game()
-
     
 --[[
  *   "Me" is the initial player's actor; the parser automatically uses the
@@ -239,7 +206,3 @@ function commandPrompt(code)
     print_txt("\n>")
 end
 
-function getCurrentGame()
-
-  return currentGame
-end
