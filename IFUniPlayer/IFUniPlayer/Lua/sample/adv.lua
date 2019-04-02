@@ -81,6 +81,34 @@ function inputline()
     end
 end
 
+
+
+function eval(expr)
+    if type(expr) == "function" then
+        return expr()
+    else
+        return expr
+    end
+end
+
+-- basic functions
+
+
+
+--[[
+ *   The die() function is called when the player dies.  It tells the
+ *   player how well he has done (with his score), and asks if he'd
+ *   like to start over (the alternative being quitting the game).
+--]]
+
+function die()
+
+print("\n*** You have died ***\n")
+scoreRank()
+print("\nYou may restore a saved game, start over, quit, or undo the current command.\n")
+
+end
+
 --[[
 *   checkReach: determines whether the object obj can be reached by
  *   actor in location loc, using the verb v.  Tthis routine returns true
@@ -101,7 +129,11 @@ end
     end
  end
  
- 
+ function pardon()
+
+    print("I beg your pardon?")
+end
+     
 --[[
 
  *  listcontgen: function(obj, flags, indent)
@@ -155,7 +187,7 @@ function listcontgen(obj, flags, indent)
         end                            
    end
    
-   local listCount = table.getn(list)
+   local listCount = #list
    for i = listCount, 1, 1
    do
     local cur = list[i]
@@ -186,10 +218,65 @@ function listcontgen(obj, flags, indent)
 
 end
 
+function sleepDaemon()
+    local a, s
+
+    currentgame.awakeTime = currentgame.awakeTime + 1
+    a = currentgame.awakeTime
+    s = currentgame.sleepTime
+
+    if (a == s or a == s+10 or a == s+20) then
+        print("\bYou're feeling a bit drowsy; you should find a comfortable place to sleep.")
+    elseif ( a == s+25 or a == s+30 ) then
+        print("\bYou really should find someplace to sleep soon, or you'll probably pass out from exhaustion. ")
+    elseif ( a >= s+35 ) then
+      if ( Me.location.isbed or Me.location.ischair ) then
+        print("\bYou find yourself unable to stay awake any longer")
+        print("Fortunately, you are ")
+        if (Me.location.isbed) then 
+            print("on ")
+         else 
+            print("in ")
+            print(Me.location.adesc .. ", so you gently slip off into unconsciousness.")
+            goToSleep()
+         end
+      else
+        print("\bYou find yourself unable to stay awake any longer.")
+        print("You pass out, falling to the ground. ")
+	    dropAll(Me)
+        goToSleep()
+    end
+end
+
+function eatDaemon()
+    local e, l;
+
+    if (Me.isasleep) then
+        return
+    end
+
+    currentgame.lastMealTime = currentgame.lastMealTime + 1
+    e = currentgame.eatTime;
+    l = currentgame.lastMealTime;
+
+    if (l == e or l == e+5 or l == e+10) then
+        print("You're feeling a bit peckish. Perhaps it would be a good time to find something to eat. ")
+    elseif (l == e+15 or l == e+20 or l == e+25) then
+        print("You're feeling really hungry. You should find some food")
+        print("soon or you'll pass out from lack of nutrition. ")
+    elseif (l == e+30 or l == e+35) then
+        print("You can't go much longer without food. ")
+    elseif (l >= e+40) then
+        print("You simply can't go on any longer without food. You perish from lack of nutrition. ")
+        die()
+    end
+end
+
+
 function turncount()
 
     currentgame.turns = currentgame.turns + 1  
-    scoreStatus(currentgame.turns, currentgame.points);
+    scoreRank();
 end
 
 --[[
@@ -387,7 +474,7 @@ end
 
 self.doVerb = function(v, a, i)
     local ind = 0
-   local verbCount = table.getn(self.verbTable)
+   local verbCount = #self.verbTable
    repeat
         if ind == verbCount then
             break
@@ -432,4 +519,6 @@ function Game:__construct()
     self.sleepTime = 400     -- interval between sleeping times (longest time awake)
     self.lastMealTime = 0              -- time that has elapsed since the player ate
     self.eatTime = 200         -- interval between meals (longest time without food)
+    self.dreamList = {}
+
 end

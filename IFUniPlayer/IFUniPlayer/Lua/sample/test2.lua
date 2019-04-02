@@ -1,6 +1,5 @@
--- test class 
+    -- test class 
 
-require "std"
 require "adv"
 require "game"
 

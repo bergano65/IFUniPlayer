@@ -1,8 +1,6 @@
 -- test class 
 
 require "Luaoop"
-require "table"
-require "std"
 require "adv"
 require "game"
 
@@ -16,6 +14,14 @@ function test_game_create()
 startGame()
 print(game)
 print(game.description)
+end
+
+
+function test_callback()
+print("hostSetGame")
+print(hostSetGame)
+print(game)
+hostSetGame(game)
 end
 
 function test_oop()
@@ -53,6 +59,7 @@ test_oop()
 test_thing_create()
 test_table()
 test_game_create()
+test_callback()
 end
 
 main()

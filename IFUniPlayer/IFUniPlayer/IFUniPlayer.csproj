@@ -11,23 +11,23 @@
 
   <ItemGroup>
     <None Remove="Lua\base.lua" />
-    <None Remove="Lua\game.lua" />
     <None Remove="Lua\sample\adv.lua" />
     <None Remove="Lua\sample\game.lua" />
     <None Remove="Lua\sample\Luaoop.lua" />
     <None Remove="Lua\sample\simploo.lua" />
     <None Remove="Lua\sample\std.lua" />
     <None Remove="Lua\sample\test.lua" />
+    <None Remove="Menu.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Lua\game.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Lua\sample\simploo.lua" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Lua\sample\game.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lua\sample\adv.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -38,6 +38,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Lua\sample\test.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

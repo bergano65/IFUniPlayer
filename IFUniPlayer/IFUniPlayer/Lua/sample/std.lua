@@ -13,99 +13,6 @@ local Luaoop = require("Luaoop")
 class = Luaoop.class
 
 
--- basic io functions
-function print_txt(msg)
-
-if currentgame == nil or currentgame.mode == "txt" then
-  print(msg)
-end
-
-end
-
-function eval(expr)
-    if type(expr) == "function" then
-        return expr()
-    else
-        return expr
-    end
-end
-
--- basic functions
---[[
-commonInit
-init
-terminate
-pardon
-mainRestore
-initRestore
-]]--
-
---  forward declaration game class holding current game parameters and  current game 
--- local game
--- local current_game
-
-
---[[
- *   The die() function is called when the player dies.  It tells the
- *   player how well he has done (with his score), and asks if he'd
- *   like to start over (the alternative being quitting the game).
---]]
-
-function die()
-
-print_txt("\n*** You have died ***\n")
-scoreRank()
-print_txt("\nYou may restore a saved game, start over, quit, or undo the current command.\n")
-
-end
-
---[[
-*   The scoreRank() function displays how well the player is doing.
- *   This default definition doesn't do anything aside from displaying
- *   the current and maximum scores.  Some game designers like to
- *   provide a ranking that goes with various scores ("Novice Adventurer,"
- *   "Expert," and so forth); this is the place to do so if desired.
- *
- *   Note that "current_game.maxpoints" defines the maximum number of points
- *   possible in the game; change the property in the "global" object
- *   if necessary. 
---]]
- 
-
- function scoreRank()
-
-  if  currentgame == nil then
-    print_txt("No current game")
-    return
-  end
-  
-  if currentgame.mode == "txt" then
-    print_txt("In a total of " .. currentgame.turns) 
-    print_txt("turns, you have achieved a score of " .. currentgame.points) 
-    print_txt(" points out of a possible " .. currentgame.maxpoints)
-  end
-end
-
---[[
-Show score
---]]
-
- function scoreStatus()
-
-  if  currentgame == nil then
-    print_txt("No current game")
-    return
-  end
-  
-  if currentgame.mode == "txt" then
-    print_txt("In a total of " .. currentgame.turns) 
-    print_txt("turns, you have achieved a score of " .. currentgame.points) 
-    print_txt(" points out of a possible " .. currentgame.maxpoints)
-  end
-end
-
-
---[[
 
  *   commonInit() - this is not a system-required function; this is simply
  *   a helper function that we define so that we can put common
@@ -132,7 +39,7 @@ function init()
     parserGetMe().location = startRoom
     startRoom.doAction("look")
     startRoom.isSeen = true
-    scoreStatus(0, 0) -- initialize the score displayt    
+    scoreStatus() -- initialize the score displayt    
 end
 
 --[[
@@ -168,41 +75,4 @@ end
  *   line.  The function generally just prints a message ("Speak up" or
  *   some such).  This default version just says "I beg your pardon?"
 --]]
-
-function pardon()
-
-    print_txt("I beg your pardon?")
-end
-
-    
---[[
- *   "Me" is the initial player's actor; the parser automatically uses the
- *   object named "Me" as the player character object at the beginning of
- *   the game.  We'll provide a default definition simply by creating an
- *   object that inherits from the basic player object, basicMe, defined
- *   in "adv.t".
- *   
- *   Note that you can change the player character object at any time
- *   during the game by calling parserSetMe(newMe).  You can also create
- *   additional player character objects, if you want to let the player
- *   take the role of different characters in the course of the game, by
- *   creating additional objects that inherit from basicMe.  (Inheriting
- *   from basicMe isn't required for player character objects -- you can
- *   define your own objects from scratch -- but it makes it a lot easier,
- *   since basicMe has a lot of code pre-defined for you.)  
- --]]
- 
---[[
- *   commandPrompt - this displays the command prompt.  For HTML games, we
- *   switch to the special TADS-Input font, which lets the player choose
- *   the font for command input through the preferences dialog.
---]]
-
-me = nil
-
-function commandPrompt(code)
-
-    -- display the normal prompt
-    print_txt("\n>")
-end
 

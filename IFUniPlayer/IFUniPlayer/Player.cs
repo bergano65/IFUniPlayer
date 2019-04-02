@@ -17,9 +17,13 @@ namespace IFUniPlayer
     {
         private static Player player;
 
+        public Game Game { get; set; }
+
         public Page MainView { get; set; }
 
         public Editor Editor  { get; set; }
+
+        public Label ScoreLabel { get; set; }
 
         public static Player Instance
         {
@@ -34,8 +38,33 @@ namespace IFUniPlayer
             }
         }
 
-        public static int SetGame(DynValue game)
+        public int SetGame(Table table)
         {
+            Editor.Text = (string)table["description"];
+            UpdateScore(table);
+            return 0;
+       }
+
+        public int UpdateScore(Table table)
+        {
+            string name = (string)table["name"];
+            double turns = (double)table["turns"];
+            double points = (double)table["points"];
+            double maxPoints = (double)table["maxpoints"];
+
+            string status;        
+            if (maxPoints != 0)
+            {
+                status = string.Format("{0}\r\n{1} turns {2}/{3} points", name, turns, points, maxPoints);
+            }
+            else
+            {
+                status = string.Format("{0}\r\n{1} turns {2}/{3} points", name, turns, points, maxPoints);
+            }
+
+            ScoreLabel.Text = status;
+
+            
             return 0;
         }
 
@@ -53,20 +82,16 @@ namespace IFUniPlayer
             Editor.Text += "\r\n" + s.ToLower() ;
 
             Script script = new Script();
-            script.Globals["setGame"] = (Func<DynValue, int>)SetGame;
+            script.Globals["hostSetGame"] = (Func<Table, int>)SetGame;
+            script.Globals["hostUpdateScore"] = (Func<Table, int>)UpdateScore;
+            Game = new Game();
 
-            /*
-             MoonSharpVsCodeDebugServer server = new MoonSharpVsCodeDebugServer();
-                        server.Start();
-                        server.AttachToScript(script, "DebugScript");
-            */
             // run script
             try
             {
                 Table globalCtxt = new Table(script);
-                //            DynValue res = script.DoString("print(10'~')\r\n return 5");
-                DynValue res = script.DoString("require \"game\" \r\nstartGame() \r\n");
-
+//                DynValue res = script.DoString("require \"test\" \r\nmain() \r\n");
+                Table  currentGame = script.DoString("require \"game\" \r\nstartGame() \r\n return currentGame").Table;
             }
             catch (Exception e)
             {
@@ -76,5 +101,6 @@ namespace IFUniPlayer
             ShowMainView();
 
         }
+
     }
 }
