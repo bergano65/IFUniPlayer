@@ -8353,3 +8353,4 @@ reactorDoor: fixeditem
     }
     verDoClose( actor ) = { self.verDoOpen( actor ); }
 ;
+]]--

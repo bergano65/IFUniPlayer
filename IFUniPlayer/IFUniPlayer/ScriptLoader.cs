@@ -23,7 +23,7 @@ namespace IFUniPlayer
         public override object LoadFile(string file, Table globalContext)
         {
             string assemblyName = Assembly.GetExecutingAssembly().CodeBase;
-             string fileName = assemblyName.Replace("file:///", "");
+            string fileName = assemblyName.Replace("file:///", "");
             fileName = Path.GetDirectoryName(fileName);
             fileName = Directory.GetParent(fileName).FullName;
             fileName = Path.Combine(fileName, file + ".lua");
@@ -31,6 +31,7 @@ namespace IFUniPlayer
             Assembly assembly = Assembly.GetExecutingAssembly();
             string[] resources = assembly.GetManifestResourceNames();
             string resourceName = resources.Where(r => r.Contains(file)).FirstOrDefault();
+
             if (resourceName == null)
             {
                 return null;

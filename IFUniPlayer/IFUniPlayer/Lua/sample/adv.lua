@@ -240,6 +240,7 @@ function sleepDaemon()
             print(Me.location.adesc .. ", so you gently slip off into unconsciousness.")
             goToSleep()
          end
+         end
       else
         print("\bYou find yourself unable to stay awake any longer.")
         print("You pass out, falling to the ground. ")
@@ -271,7 +272,6 @@ function eatDaemon()
         die()
     end
 end
-
 
 function turncount()
 

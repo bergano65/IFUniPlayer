@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using MoonSharp;
-using MoonSharp.VsCodeDebugger;
-using MoonSharp.Interpreter.Debugging;
-using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Loaders;
-
-using Xamarin;
+﻿using MoonSharp.Interpreter;
+using System;
 using Xamarin.Forms;
 
 namespace IFUniPlayer
