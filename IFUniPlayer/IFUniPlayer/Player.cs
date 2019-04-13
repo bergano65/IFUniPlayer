@@ -8,8 +8,6 @@ namespace IFUniPlayer
     {
         private static Player player;
 
-        public Game Game { get; set; }
-
         public Page MainView { get; set; }
 
         public Editor Editor  { get; set; }
@@ -75,7 +73,6 @@ namespace IFUniPlayer
             Script script = new Script();
             script.Globals["hostSetGame"] = (Func<Table, int>)SetGame;
             script.Globals["hostUpdateScore"] = (Func<Table, int>)UpdateScore;
-            Game = new Game();
 
             // run script
             try
