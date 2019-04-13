@@ -29,34 +29,27 @@
                 <img src="lamp.png" width="32" height="32" />
             </button>
             <ul class="dropdown-menu">
-                <!--                <li class="dropdown-submenu">
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-submenu">
-                                <a class="test" href="#">Choose<span class="caret">Game</span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="cmd">Deep space drifter</a></li>
-                                    <li><a href="#" class="cmd">Tutorial</a></li>
-                                </ul>
-                            </li>
-                            <li><a tabindex="-1" href="#" class="cmd">New</a></li>
-                            <li><a tabindex="-1" href="#" class="cmd">Open</a></li>
-                            <li><a tabindex="-1" href="#" class="cmd">Save</a></li>
-                        </ul>
-                    </li>
-    -->
                 <li class="dropdown-submenu">
                     <a class="test" tabindex="-1" href="#">Help<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#" onclick="help()" >Help</a></li>
-                        <li><a tabindex="-1" href="#"  onclick="about()">About</a></li>
+                        <li><a tabindex="-1" href="#" onclick="help()">Help</a></li>
+                        <li><a tabindex="-1" href="#" onclick="about()">About</a></li>
                     </ul>
                 </li>
                 <li class="dropdown-submenu">
                     <a class="test" tabindex="-1" href="#">Game<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#" onclick="restart()">Help</a></li>
-                        <li><a tabindex="-1" href="#" onclick="open()">Open</a></li>
-                    </ul>
+                        <li>
+                        <a class="test" href="#">Choose<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="playGame('dsd')">Deep space drifter</a></li>
+                            <li><a href="#" onclick="playGame('tt')">Tutorial</a></li>
+                        </ul>
+                    </li>
+                <li><a tabindex="-1" href="#" onclick="restart()">Restart</a></li>
+                <li><a tabindex="-1" href="#" onclick="open()">Open</a></li>
+                <li><a tabindex="-1" href="#" onclick="save()">Save</a></li>
+            </ul>
                 </li>
             </ul>
         </div>
