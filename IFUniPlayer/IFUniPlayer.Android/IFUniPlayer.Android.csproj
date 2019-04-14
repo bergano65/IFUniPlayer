@@ -120,6 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\lamp.png" />
+    <EmbeddedResource Include="Assets\Player.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="lamp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

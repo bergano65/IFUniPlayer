@@ -7,17 +7,16 @@ namespace IFUniPlayer
     {
         public App()
         {
+            var tabs = new TabbedPage();
             LocalHtml view = new LocalHtml { Title = "Player" };
-            MainPage = view;
-            /*
-             *          var tabs = new TabbedPage();
-                        tabs.Children.Add (new LocalHtmlBaseUrl {Title = "BaseUrl" });
-                        tabs.Children.Add (new WebPage { Title = "Web Page"});
-            /*
-                        tabs.Children.Add (new WebAppPage {Title ="External"});
-                        MainPage = tabs;
-            */
+            tabs.Children.Add(view);
+
+            tabs.Children.Add(new HybridWebViewPage { Title = "Callback" });
+
+            tabs.Children.Add (new WebPage { Title = "Web Page"});
+                       MainPage = tabs;
         }
     }
 }
+
 
