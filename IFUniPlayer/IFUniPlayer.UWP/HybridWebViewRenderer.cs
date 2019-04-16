@@ -13,7 +13,6 @@ namespace IFUniPlayer.UWP
 {
     public class HybridWebViewRenderer : ViewRenderer<HybridWebView, Windows.UI.Xaml.Controls.WebView>
     {
-        const string JavaScriptFunction = "function invokeCSharpAction(data){window.external.notify(data);}";
 
         protected override void OnElementChanged(ElementChangedEventArgs<HybridWebView> e)
         {
@@ -21,7 +20,9 @@ namespace IFUniPlayer.UWP
 
             if (Control == null)
             {
-                SetNativeControl(new Windows.UI.Xaml.Controls.WebView());
+                WebView view = new Windows.UI.Xaml.Controls.WebView();
+                view.Settings.IsJavaScriptEnabled = true;
+                SetNativeControl(view);
             }
             if (e.OldElement != null)
             {
@@ -41,13 +42,20 @@ namespace IFUniPlayer.UWP
             if (args.IsSuccess)
             {
                 // Inject JS script
-                await Control.InvokeScriptAsync("eval", new[] { JavaScriptFunction });
+                WebView view = Control as WebView;
+                const string JavaScriptFunction = "function invokeCSharpAction(data){window.external.notify(data);}";
+
+                string[] a = new string[] { JavaScriptFunction };
+
+                await view.InvokeScriptAsync("ev", a);
+                //                await Control.InvokeScriptAsync("eval", new[] { "alert('+');" });
             }
         }
 
-        void OnWebViewScriptNotify(object sender, NotifyEventArgs e)
+        async void OnWebViewScriptNotify(object sender, NotifyEventArgs e)
         {
-            Element.InvokeAction(e.Value);
+
         }
     }
 }
+ 

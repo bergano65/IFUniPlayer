@@ -41,7 +41,6 @@ function init()
     startRoom.isSeen = true
     scoreStatus() -- initialize the score displayt    
 end
-
 --[[
  *   initRestore() - the system calls this function automatically at game
  *   startup if the player specifies a saved game to restore on the

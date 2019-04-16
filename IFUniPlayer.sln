@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IFUniPlayer", "IFUniPlayer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUnitTests", "CUnitTests\CUnitTests.csproj", "{E54D9B58-0905-4F36-A797-8BE1AB98A1E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUIPlayer", "WebUIPlayer\WebUIPlayer.csproj", "{7F88E760-CFA0-4D95-ACD2-3CB76C9E4AE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPlayer", "WebPlayer\WebPlayer.csproj", "{7F88E760-CFA0-4D95-ACD2-3CB76C9E4AE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
