@@ -5,31 +5,34 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="js/require.js"></script>
+    <script src="js/lua.vm.js"></script>
+
     <style>
         .dropdown {
             font-size: 15px;
         }
 
-   .dropdown-submenu {
+        .dropdown-submenu {
             position: relative;
             font-size: 15px;
         }
 
-        .dropdown-submenu .dropdown-menu {
-            left: 15%;
-            top: 35px;
-            font-size: 15px;
-        }
-    
+            .dropdown-submenu .dropdown-menu {
+                left: 15%;
+                top: 35px;
+                font-size: 15px;
+            }
+
         body {
             background-image: url("bck.jpg");
             background-size: cover;
         }
 
         .count {
-            background-color:white;
-            font-size:large;
-            vertical-align:central;
+            background-color: white;
+            font-size: large;
+            vertical-align: central;
         }
     </style>
 </head>
@@ -107,11 +110,42 @@
         }
 
         $(document).ready(function () {
+
+            const lua = require(["js/require.js"]);
+
+            2var L = _luaL_newstate();
+
+            alert("+-+");            
+
             $('.dropdown-submenu a.test').on("click", function (e) {
                 $(this).next('ul').toggle();
                 e.stopPropagation();
                 e.preventDefault();
             });
+
+            alert("++");            
+            var objReq = new XMLHttpRequest();
+            objReq.open("GET", "http://CSCommand.htm?cmdName=Method1&custid=2778&amout=27.50", false);
+            alert("+++");
+
+            objReq.send(null);
+            alert("++++");
+
+            objReq.onload = function (ev) {
+                alert(ev);
+            }
+
+
+            objReq.ontimeout = function (ev) {
+                alert(ev);
+            }
+
+            objReq.onerror = function (ev) {
+                alert(ev);
+            }
+
+            alert(objReq.responseText);  
+            // http://CSCommand.htm?cmdName=Method1&custid=2778&amout=27.50
         });
 
         function setScore(name, turns, points, maxPoints)

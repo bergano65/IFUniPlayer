@@ -134,6 +134,12 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="bck.jpg" />
     <Content Include="default.css" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\fengari-web.bundle.js" />
+    <Content Include="js\lua.vm.js" />
+    <Content Include="js\player.js" />
+    <Content Include="js\require.js" />
     <Content Include="lamp.png" />
     <Content Include="local.html" />
     <Content Include="Player.html" />

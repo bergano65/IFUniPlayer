@@ -26,15 +26,21 @@ namespace IFUniPlayer.UWP
             }
             if (e.OldElement != null)
             {
+                Control.NavigationStarting -= Control_NavigationStarting;
                 Control.NavigationCompleted -= OnWebViewNavigationCompleted;
                 Control.ScriptNotify -= OnWebViewScriptNotify;
             }
             if (e.NewElement != null)
             {
+                Control.NavigationStarting += Control_NavigationStarting;
                 Control.NavigationCompleted += OnWebViewNavigationCompleted;
                 Control.ScriptNotify += OnWebViewScriptNotify;
                 Control.Source = new Uri(string.Format("ms-appx-web:///{0}", Element.Uri));
             }
+        }
+
+        private void Control_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
         }
 
         async void OnWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
@@ -45,16 +51,17 @@ namespace IFUniPlayer.UWP
                 WebView view = Control as WebView;
                 const string JavaScriptFunction = "function invokeCSharpAction(data){window.external.notify(data);}";
 
+//                string[] a = new string[] { "alert('!');" };
                 string[] a = new string[] { JavaScriptFunction };
 
-                await view.InvokeScriptAsync("ev", a);
-                //                await Control.InvokeScriptAsync("eval", new[] { "alert('+');" });
+//                await view.InvokeScriptAsync("ev", a);
+                                await Control.InvokeScriptAsync("eval", new[] { "alert('++');" });
             }
         }
 
         async void OnWebViewScriptNotify(object sender, NotifyEventArgs e)
         {
-
+            Element.InvokeAction(e.Value);
         }
     }
 }

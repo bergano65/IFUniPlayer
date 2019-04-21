@@ -1,7 +1,4 @@
 ﻿"use strict";
-
-require("lua.vm.js");
-
 /*
 const lua = require('fn/lua.js');
 const lauxlib = require('fn/lauxlib.js');
@@ -33,10 +30,27 @@ function help()
 function about()
 {
         window.external.notify("about");
-}
+    }
 
 function play(game)
 {
-    Lua.exec("js.global.alert('+l+')", "");
+/*
+    let L = lauxlib.luaL_newstate();
+    if (!L) throw Error("failed to create lua state");
+
+    let luaCode = `
+        local f = function (a, b)
+            return a + b
+        end
+
+        local c = f(1, 2)
+
+        return c
+    `;
+
+     lauxlib.luaL_loadstring(L, to_luastring(luaCode));
+    lua.lua_call(L, 0, -1);
+    var r = lua.lua_tointeger(L, -1);
+*/
 }
 

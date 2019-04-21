@@ -1,32 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<style>
-    .dropdown {
-        font-size: 15px;
-    }
-
-    .dropdown-submenu {
-        position: relative;
-        font-size: 15px;
-    }
-
-        .dropdown-submenu .dropdown-menu {
-            left: 15%;
-            top: 35px;
-            font-size: 15px;
-        }
-
-    body {
-        background-image: url("bck.jpg");
-        background-size: cover;
-    }
-
-    .count {
-        background-color: white;
-        font-size: large;
-        vertical-align: central;
-    }
-</style>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,7 +13,36 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
     <script src="~/js/player.js"></script>
+    <script src="~/js/lua.vm.js"></script>
+
+    <style>
+        .dropdown {
+            font-size: 15px;
+        }
+
+        .dropdown-submenu {
+            position: relative;
+            font-size: 15px;
+        }
+
+            .dropdown-submenu .dropdown-menu {
+                left: 15%;
+                top: 35px;
+                font-size: 15px;
+            }
+
+        body {
+            background-size: cover;
+        }
+
+        .count {
+            background-color: white;
+            font-size: large;
+            vertical-align: central;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -81,7 +83,7 @@
                 </div>
                 <!-- em -->
                 <div id="gameName" class="col-md-2 count">
-                    ----
+                ----
                 </div>
                 <div id="turnCount" class="col-md-2 count">
                     0
@@ -97,16 +99,53 @@
     </div>
     @RenderBody()
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="@Url.Content("~/js/bootstrap.js")"></script>   
-<script>
+    <script src="@Url.Content("~/js/bootstrap.js")"></script>
+    <script>
         $(document).ready(function () {
             $('.dropdown-submenu a.test').on("click", function (e) {
                 $(this).next('ul').toggle();
                 e.stopPropagation();
                 e.preventDefault();
             });
+
+            init();
         });
 
-</script>
-</body >
-</html >
+        function setBackground(img)
+        {
+            $(document.body).css('background-image', "url('" + img + "')");
+        }
+
+        function setScore(gameName, turns, points, maxPoints)
+        {
+            $("div[id='gameName']").html(gameName);
+            $("div[id='turnCount']").html(turns);
+
+            var count = points.toString();
+            if (maxPoints > 0)
+            {
+                count += "/" + maxPoints.toString();
+            }
+
+            $("div[id='pointCount']").html(count);
+        }
+
+        function init() {
+            Lua.initialize();
+            Lua.inject(print, "print");
+            Lua.inject(setScore, "setScore");
+            Lua.inject(setBackground, "setBackground");
+        }
+
+        function print(s) {
+            alert(s);
+        }
+
+    </script>
+
+</body>
+</html>
+
+
+
+
