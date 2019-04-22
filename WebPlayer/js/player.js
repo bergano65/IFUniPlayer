@@ -2,14 +2,6 @@
 
 require("lua.vm.js");
 
-/*
-const lua = require('fn/lua.js');
-const lauxlib = require('fn/lauxlib.js');
-const lualib = require('fn/lualib.js');
-const { to_luastring } = require("fn/fengaricore.js");
-*/
-
-
 function restart()
 {
     alert('+');
@@ -37,6 +29,14 @@ function about()
 
 function play(game)
 {
-    Lua.exec("js.global.alert('+l+')", "");
+    console.log("playgame-" + game);
+    var code = " require('..\\games\\" + game + "\\game.lua') " +
+        "local g = startGame() " +
+        " setScore(g.name, g.turns, g.points, g.maxpoints) ";
+    console.log("playgame-" + code);
+    debugger;
+    code = " setScore('dsd', 2, 3, 0) print(\"d~d\") ";
+    Lua.exec(code);
+    console.log("playgame-end");
 }
 

@@ -31,11 +31,9 @@ function startGame()
     game.sleepTime = 400     -- interval between sleeping times (longest time awake)
     game.lastMealTime = 0              -- time that has elapsed since the player ate
     game.eatTime = 200         -- interval between meals (longest time without food)
+    game.backgroundImage = "bck.jpg"
 
-print(hostSetGame)
-    if (hostSetGame ~= nil) then
-        hostSetGame(game)
-    end
+    return game
 end
 
 function dropAll(actor)
@@ -54,7 +52,7 @@ function dropAll(actor)
                 if i == (#rem + 1) then
                     break
                 end
-                i = i + 1
+                    i = i + 1
             until (true)
        end
 end

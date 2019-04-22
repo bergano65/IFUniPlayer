@@ -585,6 +585,6 @@ function Game:__construct()
     self.lastMealTime = 0              -- time that has elapsed since the player ate
     self.eatTime = 200         -- interval between meals (longest time without food)
     self.dreamList = {}
-
+    self.backgroundImage = ""
 end
 

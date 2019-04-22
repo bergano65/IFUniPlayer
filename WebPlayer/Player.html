@@ -7,6 +7,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="js/require.js"></script>
     <script src="js/lua.vm.js"></script>
+    <script src="js/player.js"></script>
 
     <style>
         .dropdown {
@@ -105,16 +106,7 @@
             window.external.notify("about");
         }
 
-        function play(game) {
-            window.external.notify("play-" + game);
-        }
-
         $(document).ready(function () {
-
-            const lua = require(["js/require.js"]);
-
-            var L = _luaL_newstate();
-
 
             $('.dropdown-submenu a.test').on("click", function (e) {
                 $(this).next('ul').toggle();
@@ -122,14 +114,36 @@
                 e.preventDefault();
             });
 
+            init();
         });
 
-        function setScore(name, turns, points, maxPoints)
-        {
-            $("div id='gameName'").text(name);
-            $("div id='turnCount'").text(turns);
-            $("div id='pointCount'").text(points + '/' + maxPoints);
+        function setBackground(img) {
+            $(document.body).css('background-image', "url('" + img + "')");
         }
+
+        function setScore(gameName, turns, points, maxPoints) {
+            $("div[id='gameName']").html(gameName);
+            $("div[id='turnCount']").html(turns);
+
+            var count = points.toString();
+            if (maxPoints > 0) {
+                count += "/" + maxPoints.toString();
+            }
+
+            $("div[id='pointCount']").html(count);
+        }
+
+        function init() {
+            Lua.initialize();
+            Lua.inject(print, "print");
+            Lua.inject(setScore, "setScore");
+            Lua.inject(setBackground, "setBackground");
+        }
+
+        function print(s) {
+            alert(s);
+        }
+
     </script>
 
 </body>
