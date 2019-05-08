@@ -44,7 +44,7 @@
                 <!-- menu -->
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                        <img src="lamp.png" width="32" height="32"  style="vertical-align:middle"/>
+                        <img src="lamp.png" width="32" height="32" style="vertical-align:middle" />
                     </button>
                     <ul class="dropdown-menu">
                         <li class="dropdown-submenu">
@@ -71,8 +71,9 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-            <!-- em -->
+                <!-- em -->
+
+            </div> <!-- eocol -->
         <div id="gameName"  class="col-md-2 count">
           ----
         </div>
@@ -84,9 +85,16 @@
         </div>
     </div>
 
+        <div class="row">
+            <div class="col-md-1">
+                <div id="gameTxt"  style="border-color : aqua"></div>
+            </div>
+        </div>
+
     <script>
         function restart() {
             window.external.notify("restart");
+            alert('++');
         }
 
         function open()
@@ -114,7 +122,22 @@
                 e.preventDefault();
             });
 
+            console.log("~i~");
+            debugger;
+            console.log("~ii~");
+
             init();
+
+            $.ajax({
+                url: "/Cmd.html",
+                success: function (result) {
+                    $("div[id='turnCount']").html("~i~");
+                },
+                error: function (jqXHR, exception) {
+                    $("div[id='turnCount']").html("~e~");
+                },
+            });
+
         });
 
         function setBackground(img) {
@@ -133,6 +156,14 @@
             $("div[id='pointCount']").html(count);
         }
 
+
+        function init2() {
+            Lua.initialize();
+            Lua.inject(print, function (s) { console.log(s); });
+            Lua.inject(setScore, function (n, t, p, m) { console.log(s); });
+            Lua.inject(setBackground, function (i) { console.log(i); });
+        }
+
         function init() {
             Lua.initialize();
             Lua.inject(print, "print");
@@ -141,7 +172,8 @@
         }
 
         function print(s) {
-            alert(s);
+            var txt = $("div[id='gameTxt']");
+            txt.html(txt.html() + s);
         }
 
     </script>

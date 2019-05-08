@@ -9,11 +9,11 @@ namespace IFUniPlayer
         {
             var tabs = new TabbedPage();
             LocalHtml view = new LocalHtml { Title = "Player" };
-            tabs.Children.Add(view);
+//            tabs.Children.Add(view);
 
-            tabs.Children.Add(new HybridWebViewPage { Title = "Callback" });
+            tabs.Children.Add(new HybridWebViewPage { Title = "Player" });
 
-            tabs.Children.Add (new WebPage { Title = "Web Page"});
+//            tabs.Children.Add (new WebPage { Title = "Web Page"});
                        MainPage = tabs;
         }
     }

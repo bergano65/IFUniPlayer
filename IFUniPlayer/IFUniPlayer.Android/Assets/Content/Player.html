@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <style>
+        div.gametxt {
+            padding-top: 5px;
+            padding-right: 5px;
+            padding-bottom: 5px;
+            padding-left: 5px;
+        } 
+        
+        .dropdown {
+            font-size: 15px;
+        }
+
+        .dropdown-submenu {
+            position: relative;
+            font-size: 15px;
+        }
+
+            .dropdown-submenu .dropdown-menu {
+                left: 15%;
+                top: 35px;
+                font-size: 15px;
+            }
+
+        body {
+//            background-image: url("bck.jpg");
+            background-size: cover;
+        }
+
+        .count {
+            background-color: white;
+            font-size: large;
+            vertical-align: central;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row count">
+            <div class="col-md-2">
+                <!-- menu -->
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        <img src="lamp.png" width="32" height="32"  style="vertical-align:middle"/>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu">
+                            <a class="test" tabindex="-1" href="#">Help<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" href="#help" onclick="help()">Help</a></li>
+                                <li><a tabindex="-1" href="#" onclick="about()">About</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="test" tabindex="-1" href="#">Game<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="test" href="#">Choose<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" onclick="play('dsd')">Deep space drifter</a></li>
+                                        <li><a href="#" onclick="play('tt')">Tutorial</a></li>
+                                    </ul>
+                                </li>
+                                <li><a tabindex="-1" href="#" onclick="restart()">Restart</a></li>
+                                <li><a tabindex="-1" href="#" onclick="open()">Open</a></li>
+                                <li><a tabindex="-1" href="#" onclick="save()">Save</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- em -->
+        <div id="gameName"  class="col-md-2 count">
+          ----
+        </div>
+        <div id="turnCount" class="col-md-2 count">
+            0
+        </div>
+        <div id="pointCount" class="col-md-2 count">
+            0/0
+        </div>
+        <div class="row">
+            <div id="gameTxt" class="col-md-1 gametxt2"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.dropdown-submenu a.test').on("click", function (e) {
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+
+            $("div[id='turnCount']").text(window.location.href);             
+            play('dsd');
+        });
+
+
+        function restart() {
+            window.external.notify("restart");
+        }
+
+        function open()
+        {
+            window.external.notify("open");
+        }
+
+        function save() {
+            window.external.notify("save");
+        }
+
+        function help() {
+            window.external.notify("help");
+        }
+
+        function about() {
+
+            window.location = "Command/about";
+        }
+
+        function play(game) {
+            try {
+                window.location = "Command/play/" + game;
+                var url = window.location.href;
+                var url3 = url.substring(0, url.lastIndexOf("/") + 1);
+                url3 += "Cmd.html";
+                var url2 = "https://www.google.com";
+                $.ajax({
+                    url: url3,
+                    headers:
+                    {
+                        //                        'Access-control-allow-origin': "https://www.google.com",
+                        'Access-control-allow-origin': url3
+                    },
+                    crossDomain: true,
+                    success: function (result) {
+                        var cmd = jQuery.parseJSON(result);
+                          setScore(cmd.name, cmd.turns, cmd.points, cmd.maxpoints);
+                    },
+                    error: function (jqXHR, exception) {
+                        $("div[id='gameName']").text("~ie~");
+                    },
+                });
+            }
+            catch (e)
+            {
+                $("div[id='gameName']").text("~oe~");
+            }
+        }
+
+        function setScore(name, turns, points, maxPoints)
+        {
+            $("div[id='gameName']").text(name);
+            $("div[id='turnCount']").text(turns);
+            var count = points;
+            if (maxPoints > 0)
+            {
+                count += "/" + maxPoints;
+            }
+
+            $("div[id='pointCount']").text(points + '/' + maxPoints);
+        }
+    </script>
+
+
+        
+        </body>
+</html>

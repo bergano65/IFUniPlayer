@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +59,12 @@
     <PackageReference Include="MoonSharp">
       <Version>2.0.0</Version>
     </PackageReference>
+    <PackageReference Include="PCLStorage">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.WebKit">
+      <Version>28.0.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
@@ -66,7 +73,9 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseUrl_Android.cs" />
+    <Compile Include="HybridWebViewRenderer.cs" />
+    <Compile Include="JavascriptWebViewClient.cs" />
+    <Compile Include="JSBridge.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,19 +119,22 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\XamarinLogo.png" />
+    <AndroidAsset Include="Assets\Content\XamarinLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\default.css" />
+    <AndroidAsset Include="Assets\Content\default.css" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\local.html" />
+    <AndroidAsset Include="Assets\Content\local.html" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\lamp.png" />
-    <EmbeddedResource Include="Assets\Player.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <AndroidAsset Include="Assets\Content\lamp.png" />
+    <Content Include="Assets\Content\Cmd.html" />
+    <AndroidAsset Include="Assets\Content\Player.html" />
+    <AndroidAsset Include="Assets\Content\js\bootstrap.js" />
+    <AndroidAsset Include="Assets\Content\js\bootstrap.min.js" />
+    <AndroidAsset Include="Assets\Content\js\player.js" />
+    <AndroidAsset Include="Assets\Content\js\require.js" />
     <Content Include="lamp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

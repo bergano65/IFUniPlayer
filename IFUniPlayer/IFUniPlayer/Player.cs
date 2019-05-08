@@ -1,6 +1,11 @@
 ﻿using MoonSharp.Interpreter;
 using System;
 using Xamarin.Forms;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace IFUniPlayer
 {
@@ -8,11 +13,7 @@ namespace IFUniPlayer
     {
         private static Player player;
 
-        public Page MainView { get; set; }
-
-        public Editor Editor  { get; set; }
-
-        public Label ScoreLabel { get; set; }
+        public Table CurrentGame { get; set; }
 
         public static Player Instance
         {
@@ -27,67 +28,69 @@ namespace IFUniPlayer
             }
         }
 
-        public int SetGame(Table table)
+        public string Execute(string cmd)
         {
-            Editor.Text = (string)table["description"];
-            UpdateScore(table);
-            return 0;
-       }
+            if (cmd.StartsWith("play/"))
+            {
+                return RunGame(cmd);
+            }
 
+            return null;
+        }
         public int UpdateScore(Table table)
         {
             string name = (string)table["name"];
             double turns = (double)table["turns"];
             double points = (double)table["points"];
             double maxPoints = (double)table["maxpoints"];
-
-            string status;        
-            if (maxPoints != 0)
-            {
-                status = string.Format("{0}\r\n{1} turns {2}/{3} points", name, turns, points, maxPoints);
-            }
-            else
-            {
-                status = string.Format("{0}\r\n{1} turns {2}/{3} points", name, turns, points, maxPoints);
-            }
-
-            ScoreLabel.Text = status;
-
             
             return 0;
         }
 
-        public void ShowMainView()
+        public string RunGame(string game)
         {
-            Application.Current.MainPage = new NavigationPage(MainView);
-        }
-
-        public void RunGame(string game)
-        {
-            ScriptLoader scriptLoader = new ScriptLoader("sample");
+                        ScriptLoader scriptLoader = new ScriptLoader("sample");
             scriptLoader = new ScriptLoader("");
             Script.DefaultOptions.ScriptLoader = scriptLoader;
             Script.DefaultOptions.DebugPrint = s =>
-            Editor.Text += "\r\n" + s.ToLower() ;
+            {};
 
             Script script = new Script();
-            script.Globals["hostSetGame"] = (Func<Table, int>)SetGame;
             script.Globals["hostUpdateScore"] = (Func<Table, int>)UpdateScore;
-
+            
             // run script
             try
             {
                 Table globalCtxt = new Table(script);
-//                DynValue res = script.DoString("require \"test\" \r\nmain() \r\n");
-                Table  currentGame = script.DoString("require \"game\" \r\nstartGame() \r\n return currentGame").Table;
+                CurrentGame = script.DoString("require \"game\" \r\n return startGame()").Table;
+
+                StringBuilder stringBuilder = new StringBuilder();
+                StringWriter stringWriter = new StringWriter(stringBuilder);
+
+                using (JsonWriter writer = new JsonTextWriter(stringWriter))
+                {
+                    writer.Formatting = Formatting.Indented;
+
+                    writer.WriteStartObject();
+                    writer.WritePropertyName("name");
+                    writer.WriteValue(CurrentGame["name"]);
+                    writer.WritePropertyName("description");
+                   writer.WriteValue(CurrentGame["description"]);
+                    writer.WritePropertyName("turns");
+                    writer.WriteValue(CurrentGame["turns"]);
+                    writer.WritePropertyName("points");
+                    writer.WriteValue(CurrentGame["points"]);
+                    writer.WritePropertyName("maxpoints");
+                    writer.WriteValue(CurrentGame["maxpoints"]);
+                    writer.WriteEndObject();
+                    return stringWriter.ToString();
+                }
+
             }
             catch (Exception e)
             {
-                Player.Instance.Editor.Text += e.Message;
+                return null;
             }
-
-            ShowMainView();
-
         }
 
     }

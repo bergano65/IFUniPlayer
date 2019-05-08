@@ -1,10 +1,29 @@
 ﻿// For an introduction to the Blank template, see the following documentation:
 // https://go.microsoft.com/fwlink/?LinkId=232509
 
-(function () {
-	"use strict";
+import * as lua from "js/lua.vm.js";
+import * as player from "js/player.js";
 
-	var app = WinJS.Application;
+(function () {
+    "use strict";
+
+
+    lua.Lua.initialize();
+    lua.Lua.inject("print", function (s) {
+        console.log("s");
+    })
+
+    lua.Lua.inject("setScore", function (n, t, p, m) {
+        console.log(n + ", " + t + ", " + p + ", " + m);
+    });
+
+    lua.Lua.inject("setBackground", function (i) {
+        console.log(i);
+    });
+
+    lua.Lua.execute("print('~+~')");
+
+    var app = WinJS.Application;
 	var activation = Windows.ApplicationModel.Activation;
 	var isFirstActivation = true;
 

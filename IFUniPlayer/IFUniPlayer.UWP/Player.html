@@ -7,6 +7,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="js/require.js"></script>
     <script src="js/lua.vm.js"></script>
+    <script src="js/player.js"></script>
 
     <style>
         .dropdown {
@@ -25,7 +26,7 @@
             }
 
         body {
-            background-image: url("bck.jpg");
+//            background-image: url("bck.jpg");
             background-size: cover;
         }
 
@@ -49,7 +50,7 @@
                         <li class="dropdown-submenu">
                             <a class="test" tabindex="-1" href="#">Help<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" href="#" onclick="help()">Help</a></li>
+                                <li><a tabindex="-1" href="#help" onclick="help()">Help</a></li>
                                 <li><a tabindex="-1" href="#" onclick="about()">About</a></li>
                             </ul>
                         </li>
@@ -102,19 +103,43 @@
         }
 
         function about() {
+
             window.external.notify("about");
-        }
+            $.ajax({
+                url: "/Cmd.html",
+                success: function (result) {
+            window.external.notify("about-~iiii");
+                    $("div[id='turnCount']").html("~i~");
+                },
+                error: function (jqXHR, exception) {
+            window.external.notify("about-e");
+                    $("div[id='turnCount']").html("~e~");
+                },
+            });
+}
 
         function play(game) {
-            window.external.notify("play-" + game);
+            try {
+ //               window.external.notify("play-" + game);
+
+                $.ajax({
+                    url: "file:///c:/users/administrator/appdata/local/packages/39ad6d05-8576-4b07-95d0-b39c5a24c3b0_emh4s6j6ymhkg/localstate/ifuniplayer/Cmd.html",
+                    success: function (result) {
+                        var cmd = jQuery.parseJSON(window.u_data);
+                        setScore(cmd.name, cmd.turns, cmd.points, cmd.maxPoints);
+                    },
+                    error: function (jqXHR, exception) {
+                        $("div[id='gameName']").text(exception);
+                    },
+                });
+            }
+            catch (e)
+            {
+                $("div[id='gameName']").text("~e~");
+            }
         }
 
         $(document).ready(function () {
-
-            const lua = require(["js/require.js"]);
-
-            var L = _luaL_newstate();
-
 
             $('.dropdown-submenu a.test').on("click", function (e) {
                 $(this).next('ul').toggle();
@@ -122,13 +147,14 @@
                 e.preventDefault();
             });
 
+            $("div[id='gameName']").text(window.location.href);             
         });
 
         function setScore(name, turns, points, maxPoints)
         {
-            $("div id='gameName'").text(name);
-            $("div id='turnCount'").text(turns);
-            $("div id='pointCount'").text(points + '/' + maxPoints);
+            $("div[id='gameName']").text(name);
+            $("div[id='turnCount']").text(turns);
+            $("div[id='pointCount']").text(points + '/' + maxPoints);
         }
     </script>
 

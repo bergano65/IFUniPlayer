@@ -6,14 +6,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="6d67ae3a-1f5d-4522-83f6-0061a9dfcc05"
+    Name="b83648b0-cd44-4d90-866b-3c50fc959861"
     Version="1.0.0.0"
     Publisher="CN=Administrator" />
 
-  <mp:PhoneIdentity PhoneProductId="6d67ae3a-1f5d-4522-83f6-0061a9dfcc05" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <mp:PhoneIdentity PhoneProductId="b83648b0-cd44-4d90-866b-3c50fc959861" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
 
   <Properties>
-    <DisplayName>LuaJsTst</DisplayName>
+    <DisplayName>`</DisplayName>
     <PublisherDisplayName>Administrator</PublisherDisplayName>
     <Logo>images\storelogo.png</Logo>
   </Properties>
@@ -32,8 +32,8 @@
       StartPage="index.html">
 
       <uap:VisualElements
-        DisplayName="LuaJsTst"
-        Description="LuaJsTst"
+        DisplayName="`"
+        Description="`"
         BackgroundColor="transparent"
         Square150x150Logo="images\Square150x150Logo.png"
         Square44x44Logo="images\Square44x44Logo.png">

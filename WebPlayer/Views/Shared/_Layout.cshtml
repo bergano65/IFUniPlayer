@@ -101,6 +101,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="@Url.Content("~/js/bootstrap.js")"></script>
     <script>
+
         $(document).ready(function () {
             $('.dropdown-submenu a.test').on("click", function (e) {
                 $(this).next('ul').toggle();
@@ -108,8 +109,22 @@
                 e.preventDefault();
             });
 
+            console.log("~+~");
             debugger;
-            init();
+
+            $.ajax({
+                url: "/Cmd.html",
+                success: function (result) {
+                    $("div[id='turnCount']").html("~i~");
+                },
+                error: function (jqXHR, exception) {
+                    $("div[id='turnCount']").html("~e~");
+                },
+            });
+
+            init2();
+            play('dsd');
+
         });
 
         function setBackground(img)
@@ -117,19 +132,18 @@
             $(document.body).css('background-image', "url('" + img + "')");
         }
 
-        function setScore(gameName, turns, points, maxPoints)
-        {
+        function setScore(gameName, turns, points, maxPoints) {
             $("div[id='gameName']").html(gameName);
             $("div[id='turnCount']").html(turns);
 
             var count = points.toString();
-            if (maxPoints > 0)
-            {
+            if (maxPoints > 0) {
                 count += "/" + maxPoints.toString();
             }
 
             $("div[id='pointCount']").html(count);
         }
+
 
         function init() {
             Lua.initialize();
@@ -138,8 +152,26 @@
             Lua.inject(setBackground, "setBackground");
         }
 
+
+            function init2() {
+                Lua.initialize();
+                Lua.inject(function (s) {
+                    console.log(s);
+                }, "print");
+                Lua.inject(function (n, t, p, m) {
+                }, "setScore");
+                Lua.inject(function (i) { }, "setBackground");
+            }
+
+            function init() {
+            Lua.initialize();
+            Lua.inject(print, "print");
+            Lua.inject(setScore, "setScore");
+            Lua.inject(setBackground, "setBackground");
+        }
+
         function print(s) {
-            alert(s);
+            console.log(s);
         }
 
     </script>

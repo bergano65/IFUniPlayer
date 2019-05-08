@@ -1,6 +1,22 @@
 ﻿"use strict";
 
-require("lua.vm.js");
+//import * as lua from "lua.vm.js";
+class FSImpl
+{
+
+    unlink(file)
+    {
+    }
+
+    llseek(stream, offset, whence)
+    {
+    }
+
+    lstat()
+    {
+    }
+
+}
 
 function restart()
 {
@@ -29,14 +45,20 @@ function about()
 
 function play(game)
 {
+
     console.log("playgame-" + game);
-    var code = " require('..\\games\\" + game + "\\game.lua') " +
+ /*   var code = " require('game.lua') " +
+//    var code = " require('..\\games\\" + game + "\\game.lua') " +
         "local g = startGame() " +
         " setScore(g.name, g.turns, g.points, g.maxpoints) ";
-    console.log("playgame-" + code);
-    debugger;
-    code = " setScore('dsd', 2, 3, 0) print(\"d~d\") ";
-    Lua.exec(code);
+    code += " print('~22~')";
+    console.log("playgame code-" + code);
+*/
+
+   var code = "require('game.lua')";
+   // Lua.exec(code);
+
     console.log("playgame-end");
 }
 
+   
