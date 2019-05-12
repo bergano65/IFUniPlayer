@@ -49,10 +49,15 @@ namespace IFUniPlayer.UWP
             playerFolderTask.Wait();
             playerFolder = playerFolderTask.Result;
 
-            File.Copy("Player.html", Path.Combine(playerFolder.Path, "Player.html"));
-            File.Copy("lamp.png", Path.Combine(playerFolder.Path, "lamp.png"));
+            string installFolder = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
+            File.Copy(
+                Path.Combine(installFolder, "Player.html"), 
+                Path.Combine(playerFolder.Path, "Player.html"));
+            File.Copy(
+                Path.Combine(installFolder, "lamp.png"),
+                Path.Combine(playerFolder.Path, "lamp.png"));
 
-            Task<IFolder> jsFolderTask = playerFolder.CreateFolderAsync("js", PCLStorage.CreationCollisionOption.ReplaceExisting);
+            Task <IFolder> jsFolderTask = playerFolder.CreateFolderAsync("js", PCLStorage.CreationCollisionOption.ReplaceExisting);
             jsFolderTask.Wait();
 
             StorageFolder storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
@@ -88,7 +93,15 @@ namespace IFUniPlayer.UWP
                 try
                 {
                     // {ms-appx-web:///C:/Users/Administrator/AppData/Local/Packages/39ad6d05-8576-4b07-95d0-b39c5a24c3b0_emh4s6j6ymhkg/LocalState/IFUniPlayer/Player.html}
-                    Uri addr = new Uri(string.Format("ms-appx-web:///{0}", Element.Uri));
+                    // Uri addr = new Uri(string.Format("ms-appdata:///local/{0}", Element.Uri));
+
+//              //      Uri addr = new Uri(string.Format("file:///{0}",
+//    Path.Combine(playerFolder.Path, Element.Uri)));
+            
+
+                    Uri addr = new Uri(string.Format("ms-appx-web:///{0}",
+                      Element.Uri));
+
                     Control.Source = addr;
                 }
                 catch(Exception ee)
@@ -129,3 +142,4 @@ namespace IFUniPlayer.UWP
         }
     }
 }
+   

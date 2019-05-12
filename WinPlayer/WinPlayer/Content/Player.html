@@ -7,6 +7,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <style>
+        .row {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        
         div.gametxt {
             padding-top: 5px;
             padding-right: 5px;
@@ -86,7 +93,8 @@
         <div id="pointCount" class="col-md-2 count">
             0/0
         </div>
-        <div class="row">
+</div>
+        <div class="row" style="margin-top: 30px;">
             <div id="gameTxt" class="col-md-1 gametxt2"></div>
         </div>
     </div>
@@ -102,7 +110,7 @@
 
 
             $("div[id='turnCount']").text(window.location.href);             
-//            play('dsd');
+           play('dsd');
         });
 
 
@@ -122,42 +130,23 @@
         function help() {
             window.external.notify("help");
         }
-
+         
         function about() {
-            window.external.notify("open");
+            debugger;
+            interOp.Cmd = "1";
+            var c = interOp.Cmd;
+            interOp.Cmd = "2";
+            c = interOp.Cmd;
+
+
+           // window.location = "Command/about";
         }
 
         function play(game) {
-            try {
-                window.external.notify("play/" + game);
-//                window.location = "Command/play/" + game;
-                var url = window.location.href;
-                var url3 = url.substring(0, url.lastIndexOf("/") + 1);
-                url3 += "Cmd.html";
-                var url2 = "https://www.google.com";
-                var url4 = "ms-appdata://local/Cmd.html";
-
-                $.ajax({
-                    url: url4,
-                    headers:
-                    {
-                        //                        'Access-control-allow-origin': "https://www.google.com",
-                        'Access-control-allow-origin': url4
-                    },
-                    crossDomain: true,
-                    success: function (result) {
-                        var cmd = jQuery.parseJSON(result);
-                          setScore(cmd.name, cmd.turns, cmd.points, cmd.maxpoints);
-                    },
-                    error: function (jqXHR, exception) {
-                        $("div[id='gameName']").text("~ie~");
-                    },
-                });
-            }
-            catch (e)
-            {
-                $("div[id='gameName']").text("~oe~");
-            }
+            var response = player.execute("play/" + game);
+            var cmd = jQuery.parseJSON(response);
+           setScore(cmd.name, cmd.turns, cmd.points, cmd.maxpoints);
+            $("div[id='gameTxt']").text(cmd.description);
         }
 
         function setScore(name, turns, points, maxPoints)
