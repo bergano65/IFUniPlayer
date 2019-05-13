@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System;   
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,9 +44,8 @@ namespace WinPlayer
             try
             {
                 _webView.ConsoleMessage += _webView_ConsoleMessage;
-                _webView.Address = Path.Combine(
-                        Path.GetDirectoryName(codeBaseUri.AbsolutePath),
-                        "Content/Player.html");
+                string appDir = Path.GetDirectoryName(codeBaseUri.AbsolutePath);
+                _webView.Address = Path.Combine(appDir, "Content/Player.html");
                 _interOp = new InteropObject();
                 _webView.IsBrowserInitializedChanged += _webView_IsBrowserInitializedChanged;
                 _webView.RegisterJsObject("interOp", _interOp);

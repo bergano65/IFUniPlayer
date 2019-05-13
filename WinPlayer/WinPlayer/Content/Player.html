@@ -143,10 +143,12 @@
         }
 
         function play(game) {
-            var response = player.execute("play/" + game);
-            var cmd = jQuery.parseJSON(response);
-           setScore(cmd.name, cmd.turns, cmd.points, cmd.maxpoints);
-            $("div[id='gameTxt']").text(cmd.description);
+            debugger;
+            player.execute("play/" + game);
+            setScore(player.name, player.turns, player.points, player.maxpoints);
+            $("div[id='gameTxt']").text(player.description);
+
+           player.execute("look");
         }
 
         function setScore(name, turns, points, maxPoints)

@@ -33,6 +33,10 @@ function startGame()
     game.eatTime = 200         -- interval between meals (longest time without food)
     game.backgroundImage = "bck.jpg"
 
+    if hostShowStart ~= nil then
+        hostShowStart(game)
+    end
+
     return game
 end
 
